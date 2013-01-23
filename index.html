@@ -41,10 +41,475 @@
     <!-- SLIDES -->
       <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    
+    <h2>The post-parameter ecosystem</h2>
+  </hgroup>
+  <article>
+    <ul class = "build">
+<li>The framework we have created around the concept of probability machines has led to several developments and extensions by collaborators that allow different problems to be addressed directly</li>
+<li>We are creating a new ecosystem in which parametric specification of relationships in a regression setting is unnecessary and, in fact, redundant</li>
+<li>Most of what follows is <span style="color:red">unpublished</span>, so please be selective in your sharing.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The post-parameter ecosystem</h2>
+  </hgroup>
+  <article>
+    <h3>The new nomenclature</h3>
+
+<ul>
+<li><p>Machines</p>
+
+<ul>
+<li>Probability machine</li>
+<li>Counterfactual machine</li>
+<li>Risk machine</li>
+</ul></li>
+<li><p>Interactor</p></li>
+<li><p>Recurrency and probabilistic ranking</p></li>
+<li><p>Entanglement maps</p></li>
+<li><p>Machine collectives</p>
+
+<ul>
+<li>Probability collective</li>
+<li>Risk collective</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Recurrency for variable selection</h2>
   </hgroup>
   <article>
     
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Recurrency</h2>
+  </hgroup>
+  <article>
+    <p>This work is primarily by Silke Szymczak and Joan Bailey-Wilson at NHGRI</p>
+
+<p>The basic idea </p>
+
+<ul>
+<li>Run RF repeatedly on the same dataset using different seeds </li>
+<li>Compute variable importances</li>
+<li>See which variables consistently stay at the top</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Recurrency</h2>
+  </hgroup>
+  <article>
+    <p><img src="figure/recurrency.PNG" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Recurrency</h2>
+  </hgroup>
+  <article>
+    <p>Initial experiments concentrated on filtering</p>
+
+<p>We found that filtering based on a factor of the minimum absolute variable importance removed many false positives</p>
+
+<p>Select variables in each run with <span style="color:blue">raw importance scores &gt; (factor) x minimum absolute importance score</span></p>
+
+<p>Simulation with a null model and a model with 9 independent SNPs with different MAF, effect sizes and LD structure</p>
+
+<ul>
+<li>550K SNPs</li>
+<li>1000 cases and 1000 controls</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Recurrency</h2>
+  </hgroup>
+  <article>
+    <h3>Null model</h3>
+
+<p><img src="figure/SilkeNull.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Recurrency</h2>
+  </hgroup>
+  <article>
+    <h3>Main effects model</h3>
+
+<p><img src="figure/SilkeAlternative.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Recurrency</h2>
+  </hgroup>
+  <article>
+    <p><img src="figure/SilkeError.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Entanglement maps</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Entanglement maps</h2>
+  </hgroup>
+  <article>
+    <p>This work is primarily by Dede Greenstein (NIMH) and Abhijit Dasgupta (NIAMS)</p>
+
+<p>The basic idea</p>
+
+<ul>
+<li>Context is large multivariate data collected on individuals (SNPs, pixels from images)</li>
+<li>Predict each variable using the rest using a learning machine and compute importance scores</li>
+<li><p>The importance score is a &quot;metric&quot; of the predictive strength of one variable on another in the context of the other variables</p>
+
+<ul>
+<li>It accounts for the landscape</li>
+</ul></li>
+<li><p>We want to capture which pairs of variables have a strong dependency on each other in a predictive sense</p></li>
+<li><p>The dependency need not be symmetric, though we have implemented a symmetrized version</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Entanglement maps</h2>
+  </hgroup>
+  <article>
+    <h3>Comparison of brain images in childhood ADHD from different age groups</h3>
+
+<p>We created entanglement maps for different regions of the brain for different age groups</p>
+
+<p>We can compare the maps formally using a permutation test based on the matrix Frobenius norm</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Entanglement maps</h2>
+  </hgroup>
+  <article>
+    <p><img src="figure/Dede1.png" style="height:380px;float:left;margin-bottom: 15px; margin-right:3px">
+<img src="figure/Dede2.png" style="height:380px; float: left; margin-bottom: 15px; margin-right:3px"></p>
+
+<p style="clear:both;"></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Entanglement maps</h2>
+  </hgroup>
+  <article>
+    <p><img src="figure/DedePanel.png" width=800></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Synthetic features</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Synthetic features</h2>
+  </hgroup>
+  <article>
+    <p>This work is primarily by Qinxin Pan and Jason Moore (Dartmouth) and James Malley (NIH)</p>
+
+<p>The basic idea</p>
+
+<ul>
+<li>There is biological information about the functional relationship between groups of genes/proteins (networks)</li>
+<li>We can create small learning machines using just these networks</li>
+<li>We can then use these network machines as inputs (synthetic features) in a larger machine that looks at the overall landscape in predicting outcome</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Probability collectives (COBRA)</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Probability collectives (COBRA)</h2>
+  </hgroup>
+  <article>
+    <p>This work is primarily by Aurelie Fischer, Benjamin Guedj and Gerard Biau (Paris) inspired by James Malley (NIH)</p>
+
+<p>The basic idea</p>
+
+<ul>
+<li><p>Mojirsheibani (1999) proposed the idea of combining classifiers such that the collective provably does better than any individual machine in the collective</p>
+
+<ul>
+<li>Note that this is <span style="font-weight:bold">not</span> an ensemble method</li>
+</ul></li>
+<li><p>The Paris group, inspired by Jim, has extended this to collectives of regression machines</p>
+
+<ul>
+<li>Non-trivial mathematics involved</li>
+<li>Leverages work of GKKW as well as DGL</li>
+</ul></li>
+<li><p>R package forthcoming in Q1</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>COBRA</h2>
+  </hgroup>
+  <article>
+    <p><img src="figure/BiauBoxplot2.png" height=600></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Scanning the genome</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Transcription start sites in Drosophila</h2>
+  </hgroup>
+  <article>
+    <p>This work is primarily by Anthony Fletcher and Jim Malley</p>
+
+<p>The basic idea</p>
+
+<ul>
+<li>Transcription start sites based on tetrameric structure of genome</li>
+<li><p>Scan the genomic tetramers using probability machines</p>
+
+<ul>
+<li>Learn from known data</li>
+<li>Provide probability estimtes for start sites for entire genome</li>
+</ul></li>
+<li><p>A new algorithm for finding the most predictive nodes in a tree/forest</p></li>
+<li><p>Drosophila genome (155M)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Transcription start sites in Drosophila</h2>
+  </hgroup>
+  <article>
+    <p><img src="figure/importances-map.csv.grouped-heatmap.png" height=600></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Understanding regression structures</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Probability machines for understanding structure</h2>
+  </hgroup>
+  <article>
+    <p>This work is primarily by Abhijit Dasgupta (NIAMS)</p>
+
+<p>The basic idea</p>
+
+<ul>
+<li>Run probability machines as a first pass at the data</li>
+<li>The nonparametric nature of PM allows agnostic capture of the patterns in the data</li>
+<li>Graphically look at marginal patterns, interactions, other interesting ideas</li>
+<li>Use as a check on data quality</li>
+<li>Use this as a discovery tool for further modeling and analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Probability machines for understanding structure</h2>
+  </hgroup>
+  <article>
+    <h3>Childhood obesity and eating patterns (Yanovski, NICHD)</h3>
+
+<p><img src="figure/unnamed-chunk-4.png" height=400></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Probability machines for understanding structure</h2>
+  </hgroup>
+  <article>
+    <h3>Childhood obesity and eating patterns (Yanovski, NICHD)</h3>
+
+<p><img src="figure/unnamed-chunk-5.png" height=400></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Probability machines for understanding structure</h2>
+  </hgroup>
+  <article>
+    <h3>Childhood obesity and eating patterns (Yanovski, NICHD)</h3>
+
+<p><img src="figure/unnamed-chunk-7.png" height=400></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Upcoming attractions</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>What we&#39;re working on</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Probability machines with continuous predictors</li>
+<li>Probability machines for case-control studies</li>
+<li><p>Probability machines for clustered data</p>
+
+<ul>
+<li>Repeated measures</li>
+<li>Matched studies</li>
+</ul></li>
+<li><p>Risk machines for survival studies</p></li>
+<li><p>Competing risks for survival studies using synthetic features</p></li>
+<li><p>Probability machines for propensity scoring</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Acknowledgements</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>Chefs in the kitchen</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Jason Moore (Dartmouth) @moorejh</li>
+<li>Joan Bailey-Wilson (NHGRI)</li>
+<li>Silke Szymczak (NHGRI)</li>
+<li>Gerard Biau (Paris)</li>
+<li>Brian Oliver (NIDDK)</li>
+<li>Dede Greenstein (NIMH)</li>
+<li>Michael Ward (NIAMS)</li>
+</ul>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
